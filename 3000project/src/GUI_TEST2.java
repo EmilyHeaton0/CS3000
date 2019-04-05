@@ -18,6 +18,16 @@ import javax.swing.JScrollPane;
 public class GUI_TEST2 {
 
 	private JFrame frame;
+	
+	private Color accent1;
+	private Color accent2;
+	private Color accent3;
+	
+	private JPanel Center;
+	private JPanel North;
+	private JPanel South;
+	
+	private JLabel lblIpaddress;
 
 	/**
 	 * Launch the application.
@@ -27,7 +37,8 @@ public class GUI_TEST2 {
 			public void run() {
 				try {
 					GUI_TEST2 window = new GUI_TEST2();
-					window.frame.setVisible(true);
+					window.getFrame().setVisible(true);
+					window.temp();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -35,97 +46,65 @@ public class GUI_TEST2 {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public GUI_TEST2() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		setFrame(new JFrame());
+		getFrame().setBounds(100, 100, 1100, 800);  //something, something, width, height
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel Center = new JPanel();
-		frame.getContentPane().add(Center, BorderLayout.CENTER);
-		FlowLayout CenterLayout= new FlowLayout();
-		Center.setLayout(CenterLayout);
-		JScrollPane scrollPane = new JScrollPane();
-		Center.add(scrollPane);
-		
-		JPanel North = new JPanel();
-		frame.getContentPane().add(North, BorderLayout.NORTH);
+		North = new JPanel();
+		frame.add(North, BorderLayout.NORTH);
 		FlowLayout NorthLayout= new FlowLayout(0,0,0);
 		North.setLayout(NorthLayout);
 		
-		JToolBar Palette = new JToolBar();
-		Dimension PaletteDimension= new Dimension(30,30);
-		North.add(Palette);
+		Center = new JPanel();
+		frame.add(Center, BorderLayout.CENTER);
+		FlowLayout CenterLayout= new FlowLayout();
+		Center.setLayout(CenterLayout);
 		
-		
-		ActionListener ThemeChanger = new ActionListener() {
-			public void actionPerformed(ActionEvent ColorEvent) {
-				UpdateTheme(ColorEvent);
-		    }
-		};	
-		
-		Button Blue= new Button("");
-		Color BlueTheme = new Color(0,80,255);
-		Blue.setBackground(BlueTheme);
-		Blue.setPreferredSize(PaletteDimension);
-		Blue.setActionCommand("blue");
-		Blue.addActionListener(ThemeChanger);
-		Palette.add(Blue);
-		
-		Button Green= new Button("");
-		Color GreenTheme= new Color(48,255,125);
-		Green.setBackground(GreenTheme);
-		Green.setPreferredSize(PaletteDimension);
-		Green.setActionCommand("green");
-		Green.addActionListener(ThemeChanger);
-		Palette.add(Green);
-		
-		Button Orange= new Button("");
-		Color OrangeTheme= new Color(255,111,0);
-		Orange.setBackground(OrangeTheme);
-		Orange.setPreferredSize(PaletteDimension);
-		Orange.setActionCommand("orange");
-		Orange.addActionListener(ThemeChanger);
-		Palette.add(Orange);
-		
-		Button Red= new Button("");
-		Color RedTheme= new Color(255,0,0);
-		Red.setBackground(RedTheme);
-		Red.setPreferredSize(PaletteDimension);
-		Red.setActionCommand("red");
-		Red.addActionListener(ThemeChanger);
-		Palette.add(Red);
-		
-		JLabel lblIpaddress = new JLabel("IPAddress");
+		lblIpaddress = new JLabel("IPAddress");
 		North.add(lblIpaddress);
 		
-		JPanel South= new JPanel();
-		frame.getContentPane().add(South, BorderLayout.SOUTH);
+		South= new JPanel();
+		frame.add(South, BorderLayout.SOUTH);
 		
 	}
-	
-	public void UpdateTheme(ActionEvent b) {
-		String command= b.getActionCommand();
-		if(b.equals("blue")) {
-			
-		}else if(b.equals("green")) {
-			
-		}else if(b.equals("orange")) {
-			
-		}else if(b.equals("red")) {
-			
-		}
+		
+	public JFrame getFrame() {
+		return frame;
 	}
 
+	public void setFrame(JFrame f) {
+		frame = f;
+	}
+	
+	public void setThemeColors(Color a1, Color a2, Color a3) {
+		accent1=a1;
+		accent2=a2;
+		accent3=a3;
+	}
+	
+	public void temp() {	
+		Color BlueTheme = new Color(0,80,255);
+		Color OrangeTheme= new Color(255,111,0);
+		Color RedTheme= new Color(255,0,0);
+		Color PurpleTheme= new Color(118,0,62);
+		Color White= new Color(255,255,255);
+		
+		setThemeColors(BlueTheme,BlueTheme,White);
+		setTheme();
+	}
+	
+	public void setTheme() {
+		Center.setBackground(accent3);
+		North.setBackground(accent1);
+		South.setBackground(accent1);
+		lblIpaddress.setForeground(accent3);	
+	}
+	
 }

@@ -20,20 +20,23 @@ public class GUI_TEST {
 	private Connector connection;
 
 	private JFrame frame;
-	private JTextField textField;
+
 	private JLabel label;
-	private JTextField textField_1;
 	private JLabel label_1;
-	private JTextField textField_2;
+	private JLabel label_2;
+	
 	private JLabel lblEnterIpAddress;
 	private Button submit;
 	private JLabel error;
-	private JLabel label_2;
+
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 	private JTextField textField_3;
 	
-	private Color accent1;
-	private Color accent2;
-	private Color accent3;
+	private static Color accent1;
+	private static Color accent2;
+	private static Color accent3;
 	
 	private JLabel Title;
 	private JLabel Title2;
@@ -41,6 +44,12 @@ public class GUI_TEST {
 	private JPanel Level2North;
 	private JPanel Level2Center;
 	private JPanel Level2South;
+	
+	private JToolBar Palette;
+	
+	private static GUI_TEST2 window2;
+	private static JFrame frame2;
+
 
 	/**
 	 * Launch the application.
@@ -51,6 +60,9 @@ public class GUI_TEST {
 				try {
 					GUI_TEST window = new GUI_TEST();
 					window.frame.setVisible(true);
+					window2 = new GUI_TEST2();
+					window2.setThemeColors(accent1, accent2, accent3);
+					frame2= window2.getFrame();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -173,8 +185,7 @@ public class GUI_TEST {
 		FlowLayout Level2SouthLayout= new FlowLayout(0,0,0);
 		Level2South.setLayout(Level2SouthLayout);
 
-		
-		JToolBar Palette= new JToolBar();
+		Palette= new JToolBar();
 		Dimension PaletteDimension= new Dimension(30,30);
 		Level2South.add(Palette);
 		
@@ -191,15 +202,7 @@ public class GUI_TEST {
 		Blue.setActionCommand("blue");
 		Blue.addActionListener(ThemeChanger);
 		Palette.add(Blue);
-		
-		Button Green= new Button("");
-		Color GreenTheme= new Color(48,255,125);
-		Green.setBackground(GreenTheme);
-		Green.setPreferredSize(PaletteDimension);
-		Green.setActionCommand("green");
-		Green.addActionListener(ThemeChanger);
-		Palette.add(Green);
-		
+				
 		Button Orange= new Button("");
 		Color OrangeTheme= new Color(255,111,0);
 		Orange.setBackground(OrangeTheme);
@@ -216,6 +219,14 @@ public class GUI_TEST {
 		Red.addActionListener(ThemeChanger);
 		Palette.add(Red);
 		
+		Button Purple= new Button("");
+		Color PurpleTheme= new Color(118,0,62);
+		Purple.setBackground(PurpleTheme);
+		Purple.setPreferredSize(PaletteDimension);
+		Purple.setActionCommand("purple");
+		Purple.addActionListener(ThemeChanger);
+		Palette.add(Purple);
+		
 	}
 	
 	public void Connect2Server(ActionEvent a) {
@@ -227,7 +238,9 @@ public class GUI_TEST {
 			String four= textField_3.getText();
 			String ipAddress= (one+"."+two+"."+three+"."+four);
 			if(Validate(one) && Validate(two) && Validate(three) && Validate(four)) {
-				connection= new Connector(ipAddress,11000);
+				//connection= new Connector(ipAddress,11000);
+				frame.setVisible(false);
+				frame2.setVisible(true);
 			}
 			else {
 				error.setText("Invalid Address");
@@ -241,9 +254,9 @@ public class GUI_TEST {
 			accent1= new Color(0,80,255);
 			accent2= new Color(0,80,255);
 			accent3= new Color(255,255,255);
-		}else if(command.equals("green")) {
-			accent1= new Color(48,255,125);
-			accent2= new Color(48,255,125);
+		}else if(command.equals("purple")) {
+			accent1= new Color(118,0,62);
+			accent2= new Color(118,0,62);
 			accent3= new Color(255,255,255);
 		}else if(command.equals("orange")) {
 			accent1= new Color(255,111,0);
@@ -254,6 +267,12 @@ public class GUI_TEST {
 			accent2= new Color(255,0,0);
 			accent3= new Color(255,255,255);
 		}
+		window2.setThemeColors(accent1,accent2,accent3);
+		window2.setTheme();
+		setTheme();
+	}
+	
+	public void setTheme() {
 		Level2Center.setBackground(accent1);
 		Level2North.setBackground(accent1);
 		Level2South.setBackground(accent1);
@@ -269,6 +288,7 @@ public class GUI_TEST {
 		textField.setForeground(accent1);
 		textField_1.setForeground(accent1);
 		textField_2.setForeground(accent1);
+		textField_3.setForeground(accent1);
 	}
 	
 	public boolean Validate(String num) {
@@ -288,5 +308,5 @@ public class GUI_TEST {
 		}
 		return false;
 	}
-
+	
 }
