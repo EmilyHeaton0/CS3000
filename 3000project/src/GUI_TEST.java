@@ -29,14 +29,15 @@ public class GUI_TEST {
 	private Button submit;
 	private JLabel error;
 
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textField1;
+	private JTextField textField2;
+	private JTextField textField3;
+	private JTextField textField4;
 	
 	private static Color accent1;
 	private static Color accent2;
 	private static Color accent3;
+	private static Color accent4;
 	
 	private JLabel Title;
 	private JLabel Title2;
@@ -50,10 +51,6 @@ public class GUI_TEST {
 	private static GUI_TEST2 window2;
 	private static JFrame frame2;
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,7 +58,7 @@ public class GUI_TEST {
 					GUI_TEST window = new GUI_TEST();
 					window.frame.setVisible(true);
 					window2 = new GUI_TEST2();
-					window2.setThemeColors(accent1, accent2, accent3);
+					window2.setThemeColors(accent1, accent2, accent3, accent4);
 					frame2= window2.getFrame();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,22 +67,14 @@ public class GUI_TEST {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public GUI_TEST() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
-		
-		//Formatted text fields?
-		
+				
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 700);   //something, something, width, height
+		frame.setBounds(100, 100, 700, 500);   //something, something, width, height
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		BorderLayout Level1= new BorderLayout();
@@ -100,6 +89,7 @@ public class GUI_TEST {
 		GridLayout Level2NorthLayout = new GridLayout(3,1,0,15);
 		Level2North.setLayout(Level2NorthLayout);
 		
+		/*
 		Title= new JLabel("         Hello, Welcome to Our Server!!");
 		Title2= new JLabel("         Please enter an IPv4 Address Below");
 
@@ -109,11 +99,12 @@ public class GUI_TEST {
 		Title2.setPreferredSize(new Dimension(50,50));
 		Title.setFont(TitleFont);
 		Title2.setFont(TitleFont);
-		
+	
 		Level2North.add(Title);
 		Level2North.add(Title2);
+		*/
 		
-		FlowLayout Level2CenterLayout = new FlowLayout(0,10,150);
+		FlowLayout Level2CenterLayout = new FlowLayout(0,15,50);
 		Level2Center.setLayout(Level2CenterLayout);
 		
 		Dimension textFieldDimen= new Dimension(50,50);
@@ -125,47 +116,47 @@ public class GUI_TEST {
 		lblEnterIpAddress.setFont(LabelFont);
 		Level2Center.add(lblEnterIpAddress);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(3);
-		textField_1.setPreferredSize(textFieldDimen);
-		textField_1.setFont(LabelFont);
-		Level2Center.add(textField_1);
+		textField1 = new JTextField();
+		textField1.setColumns(3);
+		textField1.setPreferredSize(textFieldDimen);
+		textField1.setFont(LabelFont);
+		Level2Center.add(textField1);
 
 		label = new JLabel(".");
 		label.setFont(PointFont);
 		Level2Center.add(label);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(3);
-		textField_2.setPreferredSize(textFieldDimen);
-		textField_2.setFont(LabelFont);
-		Level2Center.add(textField_2);
+		textField2 = new JTextField();
+		textField2.setColumns(3);
+		textField2.setPreferredSize(textFieldDimen);
+		textField2.setFont(LabelFont);
+		Level2Center.add(textField2);
 
 		label_1 = new JLabel(".");
 		label_1.setFont(PointFont);
 		Level2Center.add(label_1);
 		
-		textField = new JTextField();
-		textField.setColumns(3);
-		textField.setPreferredSize(textFieldDimen);
-		textField.setFont(LabelFont);
-		Level2Center.add(textField);
+		textField3 = new JTextField();
+		textField3.setColumns(3);
+		textField3.setPreferredSize(textFieldDimen);
+		textField3.setFont(LabelFont);
+		Level2Center.add(textField3);
 		
 		label_2 = new JLabel(".");
 		label_2.setFont(PointFont);
 		Level2Center.add(label_2);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(3);
-		textField_3.setPreferredSize(textFieldDimen);
-		textField_3.setFont(LabelFont);
-		Level2Center.add(textField_3);
+		textField4 = new JTextField();
+		textField4.setColumns(3);
+		textField4.setPreferredSize(textFieldDimen);
+		textField4.setFont(LabelFont);
+		Level2Center.add(textField4);
 		
 	    ActionListener actionListener = new ActionListener() {
 	        public void actionPerformed(ActionEvent actionEvent) {
 	          Connect2Server(actionEvent);
 	        }
-	      };
+	    };
 		
 		submit= new Button("Connect");
 		submit.setPreferredSize(new Dimension(100,50));
@@ -232,10 +223,10 @@ public class GUI_TEST {
 	public void Connect2Server(ActionEvent a) {
 		String command = a.getActionCommand();
 		if(command.equals("connect")) {
-			String one= textField_1.getText();
-			String two= textField_2.getText();
-			String three= textField.getText();
-			String four= textField_3.getText();
+			String one= textField1.getText();
+			String two= textField2.getText();
+			String three= textField3.getText();
+			String four= textField4.getText();
 			String ipAddress= (one+"."+two+"."+three+"."+four);
 			if(Validate(one) && Validate(two) && Validate(three) && Validate(four)) {
 				//connection= new Connector(ipAddress,11000);
@@ -254,20 +245,24 @@ public class GUI_TEST {
 			accent1= new Color(0,80,255);
 			accent2= new Color(0,80,255);
 			accent3= new Color(255,255,255);
+			accent4= new Color(255,255,255);
 		}else if(command.equals("purple")) {
 			accent1= new Color(118,0,62);
 			accent2= new Color(118,0,62);
 			accent3= new Color(255,255,255);
+			accent4= new Color(255,255,255);
 		}else if(command.equals("orange")) {
 			accent1= new Color(255,111,0);
 			accent2= new Color(255,111,0);
 			accent3= new Color(255,255,255);
+			accent4= new Color(255,255,255);
 		}else if(command.equals("red")) {
 			accent1= new Color(255,0,0);
 			accent2= new Color(255,0,0);
 			accent3= new Color(255,255,255);
+			accent4= new Color(255,255,255);
 		}
-		window2.setThemeColors(accent1,accent2,accent3);
+		window2.setThemeColors(accent1,accent2,accent3,accent4);
 		window2.setTheme();
 		setTheme();
 	}
@@ -279,21 +274,22 @@ public class GUI_TEST {
 		label_1.setForeground(accent3);
 		label.setForeground(accent3);
 		label_2.setForeground(accent3);
-		Title.setForeground(accent3);
-		Title2.setForeground(accent3);
+		//Title.setForeground(accent3);
+		//Title2.setForeground(accent3);
 		submit.setBackground(accent3);
 		submit.setForeground(accent1);
 		lblEnterIpAddress.setForeground(accent3);
 		error.setForeground(accent3);
-		textField.setForeground(accent1);
-		textField_1.setForeground(accent1);
-		textField_2.setForeground(accent1);
-		textField_3.setForeground(accent1);
+		textField1.setForeground(accent1);
+		textField2.setForeground(accent1);
+		textField3.setForeground(accent1);
+		textField4.setForeground(accent1);
 	}
 	
 	public boolean Validate(String num) {
 		String[] badChars= {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t",
-		"u","v","w","x","y","z","!","@","#","$","%","^","&","*","(",")",".","/","+","{","}","+","-","_"};
+		"u","v","w","x","y","z","!","@","#","$","%","^","&","*","(",")",".","/","+","{","}","+","-","_","A","B","C","D","E","F","G","H","I","J",
+		"K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 		if(num.length()==0) {
 			return false;
 		}

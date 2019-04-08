@@ -22,6 +22,7 @@ public class Connector {
 		inFromUser= new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
+			
 			clientSocket = new Socket(address, port);
 			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
