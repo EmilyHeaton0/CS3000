@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GUI_TEST2 {
+public class Chat_Window {
 	
 	private JFrame frame;
 	
@@ -27,21 +27,22 @@ public class GUI_TEST2 {
 	private JPanel North;
 	private JPanel South;
 	
-	//private JLabel lblIpaddress;
 	private RTextField enterText;
 	private JButton send;
 	private JButton save;
 	
-	//private ArrayList<JLabel> conversation;
+	private Connector connection;
 	
 	private JLabel[] conversation;
 	private int messageNUM;
+	
+	private Encryptor myEncryptor;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI_TEST2 window = new GUI_TEST2();
+					Chat_Window window = new Chat_Window();
 					window.getFrame().setVisible(true);
 					window.temp();
 				} catch (Exception e) {
@@ -51,11 +52,14 @@ public class GUI_TEST2 {
 		});
 	}
 
-	public GUI_TEST2() {
+	public Chat_Window() {
 		initialize();
 	}
 
 	private void initialize() {
+		
+		myEncryptor= new Encryptor();
+		
 		setFrame(new JFrame());
 		getFrame().setBounds(100, 100, 1100, 800);  //something, something, width, height
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,9 +182,7 @@ public class GUI_TEST2 {
 		Color BlueTheme2= new Color(0,228,255);
 		Color BlueTheme3= new Color(255,93,0);
 		
-		Color OrangeTheme= new Color(255,111,0);
 		Color RedTheme= new Color(255,0,0);
-		Color PurpleTheme= new Color(118,0,62);
 		
 		Color White= new Color(255,255,255);
 		
@@ -198,6 +200,10 @@ public class GUI_TEST2 {
 		send.setForeground(accent4);
 		save.setBackground(accent1);
 		save.setForeground(accent4);
+	}
+	
+	public void setAddress(String a) {
+		connection= new Connector(a,11000);
 	}
 	
 }

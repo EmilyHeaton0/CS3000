@@ -6,19 +6,24 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
-public class GUI_TEST {
+public class Connect_Window {
 	
-	private Connector connection;
-
 	private JFrame frame;
 
 	private JLabel label;
@@ -45,19 +50,17 @@ public class GUI_TEST {
 	private JPanel Level2North;
 	private JPanel Level2Center;
 	private JPanel Level2South;
-	
-	private JToolBar Palette;
-	
-	private static GUI_TEST2 window2;
+		
+	private static Chat_Window window2;
 	private static JFrame frame2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI_TEST window = new GUI_TEST();
+					Connect_Window window = new Connect_Window();
 					window.frame.setVisible(true);
-					window2 = new GUI_TEST2();
+					window2 = new Chat_Window();
 					window2.setThemeColors(accent1, accent2, accent3, accent4);
 					frame2= window2.getFrame();
 				} catch (Exception e) {
@@ -67,7 +70,7 @@ public class GUI_TEST {
 		});
 	}
 
-	public GUI_TEST() {
+	public Connect_Window() {
 		initialize();
 	}
 
@@ -76,6 +79,9 @@ public class GUI_TEST {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 700, 500);   //something, something, width, height
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		Image myIcon= Toolkit.getDefaultToolkit().getImage(("ChatLock.png"));
+		frame.setIconImage(myIcon);
 		
 		BorderLayout Level1= new BorderLayout();
 		frame.getContentPane().setLayout(Level1);
@@ -86,24 +92,20 @@ public class GUI_TEST {
 		Level2North= new JPanel();
 		frame.add(Level2North, BorderLayout.NORTH);
 		
+		BufferedImage myPicture;
+		try {
+			myPicture = ImageIO.read(new File("ChatLock2.png"));
+			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+			picLabel.setPreferredSize(new Dimension(100,50));
+			frame.setIconImage(myPicture);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		GridLayout Level2NorthLayout = new GridLayout(3,1,0,15);
 		Level2North.setLayout(Level2NorthLayout);
-		
-		/*
-		Title= new JLabel("         Hello, Welcome to Our Server!!");
-		Title2= new JLabel("         Please enter an IPv4 Address Below");
-
-		Font TitleFont= new Font("TitleFont",10,30);
-		
-		Title.setPreferredSize(new Dimension(50,50));
-		Title2.setPreferredSize(new Dimension(50,50));
-		Title.setFont(TitleFont);
-		Title2.setFont(TitleFont);
-	
-		Level2North.add(Title);
-		Level2North.add(Title2);
-		*/
-		
+				
 		FlowLayout Level2CenterLayout = new FlowLayout(0,15,50);
 		Level2Center.setLayout(Level2CenterLayout);
 		
@@ -176,48 +178,6 @@ public class GUI_TEST {
 		FlowLayout Level2SouthLayout= new FlowLayout(0,0,0);
 		Level2South.setLayout(Level2SouthLayout);
 
-		Palette= new JToolBar();
-		Dimension PaletteDimension= new Dimension(30,30);
-		Level2South.add(Palette);
-		
-		ActionListener ThemeChanger = new ActionListener() {
-			public void actionPerformed(ActionEvent ColorEvent) {
-				UpdateTheme(ColorEvent);
-		    }
-		};	
-		
-		Button Blue= new Button("");
-		Color BlueTheme = new Color(0,80,255);
-		Blue.setBackground(BlueTheme);
-		Blue.setPreferredSize(PaletteDimension);
-		Blue.setActionCommand("blue");
-		Blue.addActionListener(ThemeChanger);
-		Palette.add(Blue);
-				
-		Button Orange= new Button("");
-		Color OrangeTheme= new Color(255,111,0);
-		Orange.setBackground(OrangeTheme);
-		Orange.setPreferredSize(PaletteDimension);
-		Orange.setActionCommand("orange");
-		Orange.addActionListener(ThemeChanger);
-		Palette.add(Orange);
-		
-		Button Red= new Button("");
-		Color RedTheme= new Color(255,0,0);
-		Red.setBackground(RedTheme);
-		Red.setPreferredSize(PaletteDimension);
-		Red.setActionCommand("red");
-		Red.addActionListener(ThemeChanger);
-		Palette.add(Red);
-		
-		Button Purple= new Button("");
-		Color PurpleTheme= new Color(118,0,62);
-		Purple.setBackground(PurpleTheme);
-		Purple.setPreferredSize(PaletteDimension);
-		Purple.setActionCommand("purple");
-		Purple.addActionListener(ThemeChanger);
-		Palette.add(Purple);
-		
 	}
 	
 	public void Connect2Server(ActionEvent a) {
@@ -229,63 +189,16 @@ public class GUI_TEST {
 			String four= textField4.getText();
 			String ipAddress= (one+"."+two+"."+three+"."+four);
 			if(Validate(one) && Validate(two) && Validate(three) && Validate(four)) {
-				//connection= new Connector(ipAddress,11000);
 				frame.setVisible(false);
 				frame2.setVisible(true);
+				window2.setAddress(ipAddress);
 			}
 			else {
 				error.setText("Invalid Address");
 			}
 		}		
 	}
-	
-	public void UpdateTheme(ActionEvent b) {
-		String command= b.getActionCommand();
-		if(command.equals("blue")) {
-			accent1= new Color(0,80,255);
-			accent2= new Color(0,80,255);
-			accent3= new Color(255,255,255);
-			accent4= new Color(255,255,255);
-		}else if(command.equals("purple")) {
-			accent1= new Color(118,0,62);
-			accent2= new Color(118,0,62);
-			accent3= new Color(255,255,255);
-			accent4= new Color(255,255,255);
-		}else if(command.equals("orange")) {
-			accent1= new Color(255,111,0);
-			accent2= new Color(255,111,0);
-			accent3= new Color(255,255,255);
-			accent4= new Color(255,255,255);
-		}else if(command.equals("red")) {
-			accent1= new Color(255,0,0);
-			accent2= new Color(255,0,0);
-			accent3= new Color(255,255,255);
-			accent4= new Color(255,255,255);
-		}
-		window2.setThemeColors(accent1,accent2,accent3,accent4);
-		window2.setTheme();
-		setTheme();
-	}
-	
-	public void setTheme() {
-		Level2Center.setBackground(accent1);
-		Level2North.setBackground(accent1);
-		Level2South.setBackground(accent1);
-		label_1.setForeground(accent3);
-		label.setForeground(accent3);
-		label_2.setForeground(accent3);
-		//Title.setForeground(accent3);
-		//Title2.setForeground(accent3);
-		submit.setBackground(accent3);
-		submit.setForeground(accent1);
-		lblEnterIpAddress.setForeground(accent3);
-		error.setForeground(accent3);
-		textField1.setForeground(accent1);
-		textField2.setForeground(accent1);
-		textField3.setForeground(accent1);
-		textField4.setForeground(accent1);
-	}
-	
+		
 	public boolean Validate(String num) {
 		String[] badChars= {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t",
 		"u","v","w","x","y","z","!","@","#","$","%","^","&","*","(",")",".","/","+","{","}","+","-","_","A","B","C","D","E","F","G","H","I","J",
